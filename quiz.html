@@ -1,0 +1,46 @@
+<div class="quiz__parent">
+  <div class="quiz quiz__question">
+    <div
+      class="question tags"
+      *ngFor="let question of Question__Data; index as index"
+    >
+      <span>{{ question.id }}. </span>{{ question.name }}
+    </div>
+    <h3 style="text-align: center" *ngIf="stopShow">
+      your marks:{{ marksObtained().toFixed(0) }}
+    </h3>
+  </div>
+  <div class="quiz quiz__options">
+    <div
+      class="answers tags"
+      *ngFor="let question of Question__Data; index as in"
+    >
+      <button
+        #data
+        [ngClass]="{
+          correct_answer: CorrectOption === options,
+          wrong_answer: CorrectOption !== options
+        }"
+        class="answers__tags"
+        *ngFor="let options of question.answers; index as index"
+        (click)="ValidationQuestion(options)"
+      >
+        <span>{{ index + 1 }}. </span>{{ options }}
+      </button>
+      <button
+        [disabled]="buttonDisabled"
+        class="next__question"
+        (click)="nextQuestion()"
+      >
+        next question
+      </button>
+    </div>
+
+    <progress
+      class="pogress__bar__data"
+      min="0"
+      max="100"
+      [value]="progress__value"
+    ></progress>
+  </div>
+</div>
